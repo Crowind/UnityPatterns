@@ -1,14 +1,21 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-public abstract class Actor<T> : MonoBehaviour where T:Actor<T> {
-	private Queue<Command<T> > commandsQ;
+public abstract class Actor<T> where T:Actor<T> {
 	
-	public virtual void Awake() {
+	protected Queue<Command<T> > commandsQueue;
+	
+	public Actor() {
 		if (typeof(T) != GetType()) {
-			Destroy(gameObject);
 			throw new Exception("Actor type mismatch!");
+		}
+		commandsQueue = new Queue<Command<T>>();
+	}
+
+	public virtual void Update() {
+		if (commandsQueue.Count > 0) {
+			commandsQueue.Dequeue().Execute();
 		}
 	}
 }
+
