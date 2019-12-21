@@ -5,7 +5,8 @@ namespace DesignPatterns {
 		private ExampleActor exampleActor;
 		private ExampleStateMachine exampleStateMachine;
 
-		private void Awake() {
+		public override void Awake() {
+			base.Awake();
 			exampleActor = new ExampleActor();
 			exampleStateMachine = new ExampleStateMachine();
 		}
