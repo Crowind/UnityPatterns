@@ -1,5 +1,5 @@
 ﻿using System;
-
+namespace DesignPatterns {
 public abstract class StateMachine<T>  where T : StateMachine<T> {
 
 	private State<T> state;
@@ -17,4 +17,5 @@ public abstract class StateMachine<T>  where T : StateMachine<T> {
 		State?.Update();
 		State?.HandleInput();
 	}
+}
 }

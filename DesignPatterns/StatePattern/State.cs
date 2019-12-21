@@ -1,4 +1,5 @@
-﻿public abstract class State<T> where T : StateMachine<T> {
+﻿namespace DesignPatterns {
+public abstract class State<T> where T : StateMachine<T> {
 
 	protected T machine;
 
@@ -10,4 +11,5 @@
 
 	public abstract void Update();
 
+}
 }

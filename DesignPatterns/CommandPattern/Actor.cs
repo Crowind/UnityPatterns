@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+namespace DesignPatterns {
 public abstract class Actor<T> where T:Actor<T> {
 	
 	protected Queue<Command<T> > commandsQueue;
@@ -18,4 +19,4 @@ public abstract class Actor<T> where T:Actor<T> {
 		}
 	}
 }
-
+}
