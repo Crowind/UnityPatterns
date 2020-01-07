@@ -7,7 +7,7 @@ namespace DesignPatterns {
 
 		public static T instance;
 
-		public virtual void Awake() {
+		protected virtual void Awake() {
 			if (!instance) {
 				if (typeof(T) != GetType()) {
 					Destroy(gameObject);

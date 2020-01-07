@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace DesignPatterns {
-	public abstract class StateMachine<T> : MonoBehaviour  where T : StateMachine<T> {
+
+	public abstract class SingletonStateMachine<T> : Singleton<SingletonStateMachine<T>> where T : StateMachine<T> {
 
 		private State<T> state;
 		public Queue<Command<T>> commandsQueue;
@@ -12,7 +12,8 @@ namespace DesignPatterns {
 			set => state = value;
 		}
 
-		private void Awake() {
+		protected override void Awake() {
+			base.Awake();
 			commandsQueue = new Queue<Command<T>>();
 			if (typeof(T) != GetType()) {
 				throw new Exception("State instance and StateMachine type mismatch!");
@@ -20,13 +21,14 @@ namespace DesignPatterns {
 		}
 
 		public virtual void Update() {
-		
+
 			State?.Update();
 			State?.HandleInput();
 			if (commandsQueue.Count > 0) {
 				commandsQueue.Dequeue().Execute();
 			}
-		
+
 		}
 	}
+
 }

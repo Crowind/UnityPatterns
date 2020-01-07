@@ -40,11 +40,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandPattern\Actor.cs" />
-    <Compile Include="CommandPattern\Command.cs" />
-    <Compile Include="Example.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Singleton.cs" />
+    <Compile Include="StatePattern\Command.cs" />
+    <Compile Include="StatePattern\Example.cs" />
+    <Compile Include="StatePattern\Singleton.cs" />
+    <Compile Include="StatePattern\SingletonStateMachine.cs" />
     <Compile Include="StatePattern\State.cs" />
     <Compile Include="StatePattern\StateMachine.cs" />
   </ItemGroup>
