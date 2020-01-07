@@ -20,7 +20,7 @@ namespace DesignPatterns {
 			}
 		}
 
-		public virtual void Update() {
+		protected virtual void Update() {
 
 			State?.Update();
 			State?.HandleInput();

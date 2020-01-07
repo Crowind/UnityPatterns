@@ -12,14 +12,14 @@ namespace DesignPatterns {
 			set => state = value;
 		}
 
-		private void Awake() {
+		protected virtual void Awake() {
 			commandsQueue = new Queue<Command<T>>();
 			if (typeof(T) != GetType()) {
 				throw new Exception("State instance and StateMachine type mismatch!");
 			}
 		}
 
-		public virtual void Update() {
+		protected virtual void Update() {
 		
 			State?.Update();
 			State?.HandleInput();

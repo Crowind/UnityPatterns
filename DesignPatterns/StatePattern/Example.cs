@@ -4,7 +4,7 @@ namespace DesignPatterns {
 
 	public class Example : StateMachine<Example> {
 
-		public override void Update() {
+		protected override void Update() {
 			base.Update();
 			State= new ExampleState(this);
 			//do things
