@@ -25,15 +25,19 @@ namespace DesignPatterns {
 		
 			State?.Update();
 			State?.HandleInput();
-			if (! executeCommandsInFixed && commandsQueue.Count > 0) {
+			if ( !executeCommandsInFixed) {
+				while (commandsQueue.Count > 0) {
+					commandsQueue.Dequeue().Execute();
+		        }
 				commandsQueue.Dequeue().Execute();
 			}
 		}
 
 		protected virtual void FixedUpdate() {
-			if (executeCommandsInFixed && commandsQueue.Count > 0) {
-				commandsQueue.Dequeue().Execute();
-			}
+			if (executeCommandsInFixed) {
+				while (commandsQueue.Count > 0) {
+					commandsQueue.Dequeue().Execute();
+				}}
 		}
 	}
 }
