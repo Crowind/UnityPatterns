@@ -6,6 +6,8 @@ namespace DesignPatterns {
 	public abstract class StateMachine<T> : MonoBehaviour  where T : StateMachine<T> {
 
 		private State<T> state;
+		[SerializeField]
+		protected bool executeCommandsInFixed;
 		public Queue<Command<T>> commandsQueue;
 		public State<T> State {
 			get => state;
@@ -23,10 +25,15 @@ namespace DesignPatterns {
 		
 			State?.Update();
 			State?.HandleInput();
-			if (commandsQueue.Count > 0) {
+			if (! executeCommandsInFixed && commandsQueue.Count > 0) {
 				commandsQueue.Dequeue().Execute();
 			}
-		
+		}
+
+		protected void FixedUpdate() {
+			if (executeCommandsInFixed && commandsQueue.Count > 0) {
+				commandsQueue.Dequeue().Execute();
+			}
 		}
 	}
 }
