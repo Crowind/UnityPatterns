@@ -30,7 +30,7 @@ namespace DesignPatterns {
 			}
 		}
 
-		protected void FixedUpdate() {
+		protected virtual void FixedUpdate() {
 			if (executeCommandsInFixed && commandsQueue.Count > 0) {
 				commandsQueue.Dequeue().Execute();
 			}
