@@ -7,6 +7,7 @@ namespace DesignPatterns {
 	public abstract class SingletonStateMachine<T> : Singleton<SingletonStateMachine<T>> where T : StateMachine<T> {
 
 		private State<T> state;
+		protected int commandsCountFixed;
 		[SerializeField]
 		protected bool executeCommandsInFixed;
 		public Queue<Command<T>> commandsQueue;
@@ -24,9 +25,9 @@ namespace DesignPatterns {
 		}
 
 		protected virtual void Update() {
+			State?.Update();
+			State?.HandleInput();
 			if ( !executeCommandsInFixed) {
-				State?.Update();
-				State?.HandleInput();
 				while (commandsQueue.Count > 0) {
 					commandsQueue.Dequeue().Execute();
 				}
@@ -35,8 +36,7 @@ namespace DesignPatterns {
 
 		protected virtual void FixedUpdate() {
 			if (executeCommandsInFixed) {
-				State?.Update();
-				State?.HandleInput();
+				commandsCountFixed = commandsQueue.Count;
 				while (commandsQueue.Count > 0) {
 					commandsQueue.Dequeue().Execute();
 				}

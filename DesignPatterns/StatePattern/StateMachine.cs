@@ -6,6 +6,7 @@ namespace DesignPatterns {
 	public abstract class StateMachine<T> : MonoBehaviour  where T : StateMachine<T> {
 
 		private State<T> state;
+		protected int commandsCountFixed;
 		[SerializeField]
 		protected bool executeCommandsInFixed;
 		public Queue<Command<T>> commandsQueue;
@@ -13,28 +14,24 @@ namespace DesignPatterns {
 			get => state;
 			set => state = value;
 		}
-
 		protected virtual void Awake() {
 			commandsQueue = new Queue<Command<T>>();
 			if (typeof(T) != GetType()) {
 				throw new Exception("State instance and StateMachine type mismatch!");
 			}
 		}
-
 		protected virtual void Update() {
+			State?.Update();
+			State?.HandleInput();
 			if ( !executeCommandsInFixed) {
-				State?.Update();
-				State?.HandleInput();
 				while (commandsQueue.Count > 0) {
 					commandsQueue.Dequeue().Execute();
 		        }
 			}
 		}
-
 		protected virtual void FixedUpdate() {
 			if (executeCommandsInFixed) {
-				State?.Update();
-				State?.HandleInput();
+				commandsCountFixed = commandsQueue.Count;
 				while (commandsQueue.Count > 0) {
 					commandsQueue.Dequeue().Execute();
 				}
