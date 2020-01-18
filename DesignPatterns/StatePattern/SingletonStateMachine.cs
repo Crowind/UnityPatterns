@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace DesignPatterns {
 
 	public abstract class SingletonStateMachine<T> : Singleton<SingletonStateMachine<T>> where T : StateMachine<T> {
 
 		private State<T> state;
+		[SerializeField]
+		protected bool executeCommandsInFixed;
 		public Queue<Command<T>> commandsQueue;
 		public State<T> State {
 			get => state;
@@ -21,13 +24,23 @@ namespace DesignPatterns {
 		}
 
 		protected virtual void Update() {
-
-			State?.Update();
-			State?.HandleInput();
-			if (commandsQueue.Count > 0) {
-				commandsQueue.Dequeue().Execute();
+			if ( !executeCommandsInFixed) {
+				State?.Update();
+				State?.HandleInput();
+				while (commandsQueue.Count > 0) {
+					commandsQueue.Dequeue().Execute();
+				}
 			}
+		}
 
+		protected virtual void FixedUpdate() {
+			if (executeCommandsInFixed) {
+				State?.Update();
+				State?.HandleInput();
+				while (commandsQueue.Count > 0) {
+					commandsQueue.Dequeue().Execute();
+				}
+			}
 		}
 	}
 
