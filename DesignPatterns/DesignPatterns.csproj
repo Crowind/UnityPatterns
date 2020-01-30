@@ -43,6 +43,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatePattern\Command.cs" />
     <Compile Include="StatePattern\Example.cs" />
+    <Compile Include="StatePattern\SceneLoadHelper.cs" />
     <Compile Include="StatePattern\Singleton.cs" />
     <Compile Include="StatePattern\SingletonStateMachine.cs" />
     <Compile Include="StatePattern\State.cs" />

@@ -38,4 +38,5 @@ namespace DesignPatterns {
 			}
 		}
 	}
+
 }
