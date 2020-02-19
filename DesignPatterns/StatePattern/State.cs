@@ -14,11 +14,9 @@
 
 		public abstract void Update();
 
-		public void Init(inputData<State<T>> data) { }
+		public abstract void Init();
 
-		public class inputData<U> where U:State<T> {
-			
-		}
+	
 	}
 
 }
