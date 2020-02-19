@@ -5,24 +5,28 @@ using UnityEngine;
 namespace DesignPatterns {
 	public abstract class StateMachine<T> : MonoBehaviour  where T : StateMachine<T> {
 
-		private State<T> state;
+		protected State<T> state;
+		protected Dictionary<Type, State<T>> possibleStates;
+		public Dictionary<Type, State<T>.inputData<State<T>>> inputDatas;
+		
 		protected int commandsCountFixed;
 		[SerializeField]
 		protected bool executeCommandsInFixed;
 		public Queue<Command<T>> commandsQueue;
-		public State<T> State {
-			get => state;
-			set => state = value;
-		}
+
 		protected virtual void Awake() {
 			commandsQueue = new Queue<Command<T>>();
+			possibleStates = new Dictionary<Type, State<T>>();
+			inputDatas = new Dictionary<Type, State<T>.inputData<State<T>>>();
+			
 			if (typeof(T) != GetType()) {
 				throw new Exception("State instance and StateMachine type mismatch!");
 			}
 		}
+		
 		protected virtual void Update() {
-			State?.Update();
-			State?.HandleInput();
+			state?.Update();
+			state?.HandleInput();
 			if ( !executeCommandsInFixed) {
 				while (commandsQueue.Count > 0) {
 					commandsQueue.Dequeue().Execute();
@@ -36,6 +40,12 @@ namespace DesignPatterns {
 					commandsQueue.Dequeue().Execute();
 				}
 			}
+		}
+
+		public void ChangeState(Type stateType) {
+			possibleStates[stateType].Init(inputDatas[stateType]);
+			state = possibleStates[stateType];
+			
 		}
 	}
 

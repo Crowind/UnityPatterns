@@ -44,6 +44,8 @@
     <Compile Include="StatePattern\Command.cs" />
     <Compile Include="StatePattern\Example.cs" />
     <Compile Include="StatePattern\SceneLoadHelper.cs" />
+    <Compile Include="StatePattern\ServiceLocator.cs" />
+    <Compile Include="StatePattern\ServiceRetriever.cs" />
     <Compile Include="StatePattern\Singleton.cs" />
     <Compile Include="StatePattern\SingletonStateMachine.cs" />
     <Compile Include="StatePattern\State.cs" />

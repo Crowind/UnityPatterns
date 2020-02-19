@@ -4,10 +4,12 @@ namespace DesignPatterns {
 
 	public class Example : StateMachine<Example> {
 
-		protected override void Update() {
-			base.Update();
-			State= new ExampleState(this);
-			//do things
+		protected override void Awake() {
+			base.Awake();
+			var idle = new ExampleState(this);
+			possibleStates.Add(idle.GetType(),idle);
+			inputDatas.Add(idle.GetType(),new ExampleState.ExampleInitData());
+			state = idle;
 		}
 	}
 
@@ -16,11 +18,17 @@ namespace DesignPatterns {
 		public ExampleState(Example machine) : base(machine) { }
 
 		public override void HandleInput() {
-			throw new System.NotImplementedException();
+			((ExampleInitData)machine.inputDatas[typeof(ExampleState)]).testValue = 5;
+			machine.ChangeState( typeof(ExampleState));
 		}
-
 		public override void Update() {
 			throw new System.NotImplementedException();
+		}
+		public new void Init(ExampleInitData initData) {
+			throw new NotImplementedException();
+		}
+		public class ExampleInitData : inputData<State<Example>> {
+			public float testValue;
 		}
 	}
 
